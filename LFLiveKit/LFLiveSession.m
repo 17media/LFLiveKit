@@ -241,22 +241,15 @@
     
     NSUInteger currentBitRate = [self.videoEncoder videoBitRate];
     NSUInteger targetBitrate = currentBitRate;
-    if (currentBitRate < minBitRate) {
-        targetBitrate = (maxBitRate + minBitRate) / 2;
-        [self.videoEncoder setVideoBitRate:targetBitrate];
-        NSLog(@"Update bitrate %@", @(targetBitrate));
-    }
-    if (currentBitRate > maxBitRate) {
+    if (currentBitRate < minBitRate || currentBitRate > maxBitRate) {
         targetBitrate = (maxBitRate + minBitRate) / 2;
         [self.videoEncoder setVideoBitRate:targetBitrate];
         NSLog(@"Update bitrate %@", @(targetBitrate));
     }
     
-    if (targetBitrate != currentBitRate) {
-        self.videoConfiguration.videoBitRate = targetBitrate;
-        self.videoConfiguration.videoMinBitRate = minBitRate;
-        self.videoConfiguration.videoMaxBitRate = maxBitRate;
-    }
+    self.videoConfiguration.videoBitRate = targetBitrate;
+    self.videoConfiguration.videoMinBitRate = minBitRate;
+    self.videoConfiguration.videoMaxBitRate = maxBitRate;
     
     return YES;
 }
