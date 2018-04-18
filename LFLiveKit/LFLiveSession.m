@@ -235,7 +235,8 @@
 }
 
 - (BOOL)updateVideoBitRateWithMaxBitRate:(NSUInteger)maxBitRate minBitRate:(NSUInteger)minBitRate {
-    if (!self.videoConfiguration || !self.videoEncoder) {
+    if (!self.videoConfiguration || !self.videoEncoder ||
+        (self.videoConfiguration.videoMinBitRate == minBitRate && self.videoConfiguration.videoMaxBitRate == maxBitRate)) {
         return NO;
     }
     
