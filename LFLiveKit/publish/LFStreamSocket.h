@@ -25,6 +25,9 @@
 @optional
 /** callback debugInfo */
 - (void)socketDebug:(nullable id <LFStreamSocket>)socket debugInfo:(nullable LFLiveDebug *)debugInfo;
+- (void)socketDidSendFrame:(nullable id <LFStreamSocket>)socket;
+- (void)socketStartReconnect:(nullable id <LFStreamSocket>)socket pushUrl:(NSString *)pushUrl;
+
 @end
 
 @protocol LFStreamSocket <NSObject>

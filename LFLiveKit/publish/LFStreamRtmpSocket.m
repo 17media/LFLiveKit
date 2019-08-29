@@ -220,6 +220,10 @@ SAVC(mp4a);
                 }
             }
             
+            if (_self.delegate && [_self.delegate respondsToSelector:@selector(socketDidSendFrame:)]) {
+                [_self.delegate socketDidSendFrame:self];
+            }
+
             //debug更新
             _self.debugInfo.totalFrame++;
             _self.debugInfo.dropFrame += _self.buffer.lastDropFrames;
@@ -286,6 +290,11 @@ SAVC(mp4a);
 }
 
 - (NSInteger)RTMP264_Connect:(char *)push_url {
+    
+    if (self.isReconnecting && self.delegate && [self.delegate respondsToSelector:@selector(socketStartReconnect:pushUrl:)]) {
+        [self.delegate socketStartReconnect:self pushUrl:@(push_url)];
+    }
+    
     //由于摄像头的timestamp是一直在累加，需要每次得到相对时间戳
     //分配与初始化
     _rtmp = PILI_RTMP_Alloc();

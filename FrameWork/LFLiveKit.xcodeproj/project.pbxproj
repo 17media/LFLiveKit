@@ -22,6 +22,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0737113D2303B9E4000E423C /* RKPushModuleMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0737113B2303B9E4000E423C /* RKPushModuleMonitor.h */; };
+		0737113E2303B9E4000E423C /* RKPushModuleMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0737113C2303B9E4000E423C /* RKPushModuleMonitor.m */; };
+		0737113F2303B9F0000E423C /* RKPushModuleMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0737113B2303B9E4000E423C /* RKPushModuleMonitor.h */; };
+		073711402303B9F0000E423C /* RKPushModuleMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0737113C2303B9E4000E423C /* RKPushModuleMonitor.m */; };
 		315FF53F208EEEBD00225044 /* QBGLMagicFilterBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 315FF53D208EEEBD00225044 /* QBGLMagicFilterBase.h */; };
 		315FF540208EEEBD00225044 /* QBGLMagicFilterBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 315FF53D208EEEBD00225044 /* QBGLMagicFilterBase.h */; };
 		315FF541208EEEBD00225044 /* QBGLMagicFilterBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 315FF53E208EEEBD00225044 /* QBGLMagicFilterBase.m */; };
@@ -1197,6 +1201,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0737113B2303B9E4000E423C /* RKPushModuleMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPushModuleMonitor.h; sourceTree = "<group>"; };
+		0737113C2303B9E4000E423C /* RKPushModuleMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPushModuleMonitor.m; sourceTree = "<group>"; };
 		315FF53D208EEEBD00225044 /* QBGLMagicFilterBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QBGLMagicFilterBase.h; sourceTree = "<group>"; };
 		315FF53E208EEEBD00225044 /* QBGLMagicFilterBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QBGLMagicFilterBase.m; sourceTree = "<group>"; };
 		315FF543208F076100225044 /* QBGLMagicFilterFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QBGLMagicFilterFactory.h; sourceTree = "<group>"; };
@@ -1976,6 +1982,8 @@
 		84358E851DD1FEB500811FC7 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				0737113B2303B9E4000E423C /* RKPushModuleMonitor.h */,
+				0737113C2303B9E4000E423C /* RKPushModuleMonitor.m */,
 				84358E861DD1FEB500811FC7 /* GPUImage */,
 				84358FE31DD1FEB600811FC7 /* pili-librtmp */,
 				BE35EB881F72736500B615DF /* ping */,
@@ -2957,6 +2965,7 @@
 				BE4059691F95CF0E00BF9962 /* GPUImage.h in Headers */,
 				C16E7D7A1E53F5C50067DE28 /* RKGPUImageDeepFilter.h in Headers */,
 				C16E7D021E5347CC0067DE28 /* RKGPUImageSoftFilter.h in Headers */,
+				0737113F2303B9F0000E423C /* RKPushModuleMonitor.h in Headers */,
 				BE49352720076CA3003F5291 /* QBGLLomoFilter.h in Headers */,
 				C16E7D621E53F4DF0067DE28 /* RKGPUImageFantasyFilter.h in Headers */,
 				BE4934FD20076CA3003F5291 /* QBGLSkinWhiteFilter.h in Headers */,
@@ -3263,6 +3272,7 @@
 				843590AB1DD1FEB600811FC7 /* GPUImageMissEtikateFilter.h in Headers */,
 				843591331DD1FEB600811FC7 /* GPUImageUnsharpMaskFilter.h in Headers */,
 				843591011DD1FEB600811FC7 /* GPUImageSoftEleganceFilter.h in Headers */,
+				0737113D2303B9E4000E423C /* RKPushModuleMonitor.h in Headers */,
 				843591251DD1FEB600811FC7 /* GPUImageToonFilter.h in Headers */,
 				BE2F236820899E5800516C0F /* QBGLYuvFilter.h in Headers */,
 				843590371DD1FEB600811FC7 /* GPUImageDarkenBlendFilter.h in Headers */,
@@ -3489,6 +3499,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				id,
@@ -3765,6 +3776,7 @@
 				BE4935F8200866DF003F5291 /* QBGLBeautyColorMapFilter.m in Sources */,
 				843591B41DD20A7F00811FC7 /* GPUImageiOSBlurFilter.m in Sources */,
 				843591B51DD20A7F00811FC7 /* GPUImageJFAVoronoiFilter.m in Sources */,
+				073711402303B9F0000E423C /* RKPushModuleMonitor.m in Sources */,
 				BE35EB901F72736600B615DF /* LFPingServices.m in Sources */,
 				843591B61DD20A7F00811FC7 /* GPUImageKuwaharaFilter.m in Sources */,
 				843591B71DD20A7F00811FC7 /* GPUImageKuwaharaRadius3Filter.m in Sources */,
@@ -4082,6 +4094,7 @@
 				843591321DD1FEB600811FC7 /* GPUImageUIElement.m in Sources */,
 				BE35EB8F1F72736600B615DF /* LFPingServices.m in Sources */,
 				C16E7D271E5349330067DE28 /* RKGPUImageFreezeFilter.m in Sources */,
+				0737113E2303B9E4000E423C /* RKPushModuleMonitor.m in Sources */,
 				843591201DD1FEB600811FC7 /* GPUImageThresholdSketchFilter.m in Sources */,
 				843590B81DD1FEB600811FC7 /* GPUImageMovieComposition.m in Sources */,
 				843590C81DD1FEB600811FC7 /* GPUImageOverlayBlendFilter.m in Sources */,

@@ -19,9 +19,10 @@
 #import "LFStreamLog.h"
 #import "RKVideoCapture.h"
 #import "RKAudioMix.h"
+#import "RKPushModuleMonitor.h"
 #import "RKReplayKitCapture.h"
 
-@interface LFLiveSession ()<LFAudioCaptureDelegate, LFVideoCaptureInterfaceDelegate, LFAudioEncodingDelegate, LFVideoEncodingDelegate, LFStreamSocketDelegate, RKReplayKitCaptureDelegate>
+@interface LFLiveSession ()<LFAudioCaptureDelegate, LFVideoCaptureInterfaceDelegate, LFAudioEncodingDelegate, LFVideoEncodingDelegate, LFStreamSocketDelegate, RKReplayKitCaptureDelegate, RKPushModuleMonitorDelegate>
 
 /// 音频配置
 @property (nonatomic, strong) LFLiveAudioConfiguration *audioConfiguration;
@@ -58,6 +59,8 @@
 /// 时间戳锁
 @property (nonatomic, strong) dispatch_semaphore_t lock;
 
+// 用來監控pushModule是否正常執行
+@property (nonatomic, strong) RKPushModuleMonitor *pushModuleMonitor;
 
 @end
 
@@ -113,7 +116,9 @@
         _adaptiveBitrate = NO;
         _captureType = captureType;
         _glContext = glContext;
+        _pushModuleMonitor = [[RKPushModuleMonitor alloc] init];
     }
+    
     return self;
 }
 
@@ -150,6 +155,8 @@
                                         @"vbr": @(videoBitRate)}];
     
     [self.socket start];
+    [self.pushModuleMonitor startMonitor];
+    self.pushModuleMonitor.delegate = self;
 }
 
 - (BOOL)updateStreamURL:(nonnull NSString *)url {
@@ -197,6 +204,7 @@
     self.uploading = NO;
     [self.socket stop];
     self.socket = nil;
+    self.pushModuleMonitor = nil;
 }
 
 - (void)pushVideo:(nullable CVPixelBufferRef)pixelBuffer {
@@ -407,9 +415,12 @@
 }
 
 - (void)videoEncoder:(nullable id<LFVideoEncoding>)encoder videoFrame:(nullable LFVideoFrame *)frame {
+    [self.pushModuleMonitor updateVideoEncodeDate];
+    
     if (!self.uploading) {
         return;
     }
+    
     if (self.isReplayKitBroadcast) {
         if (!_videoFrameQueue) {
             _videoFrameQueue = [NSMutableArray new];
@@ -428,6 +439,7 @@
             [self pushSendBuffer:frame];
         }
     } else {
+
         if (!self.hasKeyFrameVideo && frame.isKeyFrame && self.hasCaptureAudio) {
             self.hasKeyFrameVideo = YES;
         }
@@ -503,6 +515,16 @@
                                                 @"vbr": @(targetBitrate)
                                                 }];
         }
+    }
+}
+
+- (void)socketDidSendFrame:(id<LFStreamSocket>)socket {
+    [self.pushModuleMonitor updateFrameConsumptionDate];
+}
+
+- (void)socketStartReconnect:(id<LFStreamSocket>)socket pushUrl:(NSString *)pushUrl {
+    if ([self.delegate respondsToSelector:@selector(socketStartReconnect:pushUrl:)]) {
+        [self.delegate liveSessionDidStartReconnect:self pushUrl:pushUrl];
     }
 }
 
@@ -784,6 +806,21 @@
         else  return NO;
     }else{
         return YES;
+    }
+}
+
+
+#pragma mark - RKPushModuleMonitor Delegate
+
+- (void)pushModuleMonitor:(RKPushModuleMonitor *)pushModuleMonitor isVideoEcndoeMalfunction:(BOOL)isVideoEcndoeMalfunction {
+    if ([self.delegate respondsToSelector:@selector(liveSession:videoEncoderIsMalfunction:)]) {
+        [self.delegate liveSession:self videoEncoderIsMalfunction:isVideoEcndoeMalfunction];
+    }
+}
+
+- (void)pushModuleMonitor:(RKPushModuleMonitor *)pushModuleMonitor isFrameConsumptionStopped:(BOOL)isFrameConsumptionStopped {
+    if ([self.delegate respondsToSelector:@selector(liveSession:frameConsumptionIsStopped:)]) {
+        [self.delegate liveSession:self frameConsumptionIsStopped:isFrameConsumptionStopped];
     }
 }
 
